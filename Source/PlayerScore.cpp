@@ -7,10 +7,16 @@ PlayerScore::PlayerScore()
 
 void PlayerScore::addPoint()
 {
-	points = (points == 30) ? 40 : points + 15;
+	if (points == 40) advantage = 1;
+	else points = (points == 30) ? 40 : points + 15;
 }
 
 int PlayerScore::getPoints()
 {
 	return points;
+}
+
+int PlayerScore::getAdvantage()
+{
+	return advantage;
 }
