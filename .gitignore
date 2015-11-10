@@ -3,3 +3,7 @@
 *.opensdf
 *.sdf
 *.sln
+
+Debug/
+Source/Debug/
+Test/Debug/
