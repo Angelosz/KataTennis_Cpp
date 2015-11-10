@@ -7,7 +7,7 @@ PlayerScore::PlayerScore()
 
 void PlayerScore::addPoint()
 {
-	points += 15;
+	points = (points == 30) ? 40 : points + 15;
 }
 
 int PlayerScore::getPoints()

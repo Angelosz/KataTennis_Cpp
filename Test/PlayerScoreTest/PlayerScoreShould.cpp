@@ -35,4 +35,9 @@ TEST_CASE("PlayerScore should")
 		REQUIRE(PlayerScore.getPoints() == 30);
 	}
 
+	SECTION("have 40 points after winning three balls")
+	{
+		addPointsToPlayerScore(PlayerScore, 3);
+		REQUIRE(PlayerScore.getPoints() == 40);
+	}
 }
