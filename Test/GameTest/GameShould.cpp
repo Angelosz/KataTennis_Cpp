@@ -64,4 +64,17 @@ TEST_CASE("Game should")
 		CHECK(game.getWinnerName() == "No winners yet");
 		REQUIRE(game.getState() == Ongoing);
 	}
+
+	SECTION("return Ended as State and PlayerA as winner")
+	{
+		PointsAdder.addPointsToPlayerAScore(game, 3);
+		PointsAdder.addPointsToPlayerBScore(game, 3);
+		PointsAdder.addPointsToPlayerAScore(game, 1);
+		PointsAdder.addPointsToPlayerBScore(game, 1);
+		PointsAdder.addPointsToPlayerAScore(game, 2);
+
+
+		CHECK(game.getWinnerName() == "PlayerA");
+		REQUIRE(game.getState() == Ended);
+	}
 }
