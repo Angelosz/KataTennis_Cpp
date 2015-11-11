@@ -3,21 +3,19 @@
 Game::Game()
 {
 	state = Ongoing;
-	playerA = new Player("PlayerA");
-	playerB = new Player("PlayerB");
+	playerA = Player("PlayerA");
+	playerB = Player("PlayerB");
 	winner = nullptr;
 }
 
-Game::~Game()
-{
-	winner = nullptr;
-	delete playerA;
-	delete playerB;
-}
-
-Player* Game::getPlayerA() const
+Player& Game::getPlayerA()
 {
 	return playerA;
+}
+
+Player& Game::getPlayerB()
+{
+	return playerB;
 }
 
 GameState Game::getState() const
@@ -27,8 +25,10 @@ GameState Game::getState() const
 
 void Game::checkWinners()
 {
-	if (playerA->getAdvantage() - playerB->getAdvantage() == 1)
-		winner = playerA;
+	if (playerA.getAdvantage() - playerB.getAdvantage() == 1)
+		winner = &playerA;
+	if (playerB.getAdvantage() - playerA.getAdvantage() == 1)
+		winner = &playerB;
 }
 
 void Game::updateState()
@@ -37,6 +37,10 @@ void Game::updateState()
 	if (winner)
 	{
 		state = Ended;
+	} 
+	else
+	{
+		if (playerA.getPoints() == 40 && playerB.getPoints() == 40) state = Deuce;
 	}
 }
 

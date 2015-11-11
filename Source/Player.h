@@ -10,7 +10,8 @@ private:
 	std::string name;
 
 public:
-
+	Player();
+	
 	Player(std::string name);
 
 	void addPoint();

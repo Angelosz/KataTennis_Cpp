@@ -15,12 +15,38 @@ TEST_CASE("Game should")
 	Game game;
 	PointsAdder PointsAdder;
 
+	SECTION("start with state as Ongoing")
+	{
+		REQUIRE(game.getState() == Ongoing);
+	}
+
 	SECTION("return PlayerA as winner after winning four balls to zero")
 	{
-		PointsAdder.addPointsToPlayerScore(*(game.getPlayerA()), 4);
+		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 4);
 		game.updateState();
 
-		REQUIRE(game.getWinnerName() == "PlayerA");
+		CHECK(game.getWinnerName() == "PlayerA");
 		REQUIRE(game.getState() == Ended);
 	}
+	
+	SECTION("return PlayerB as winner after winning four balls to zero")
+	{
+		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 4);
+		game.updateState();
+
+		CHECK(game.getWinnerName() == "PlayerB");
+		REQUIRE(game.getState() == Ended);
+	}
+
+	SECTION("Should return Deuce as State when both players have 40 points")
+	{
+		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 3);
+		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 3);
+		game.updateState();
+
+		CHECK(game.getWinnerName() == "No winners yet");
+		REQUIRE(game.getState() == Deuce);
+	}
+
+
 }

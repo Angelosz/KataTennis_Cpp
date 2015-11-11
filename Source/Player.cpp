@@ -1,5 +1,10 @@
 ﻿#include "Player.h"
 
+Player::Player()
+{
+	name = "Player";
+}
+
 Player::Player(std::string name) : name(name){}
 
 void Player::addPoint()
