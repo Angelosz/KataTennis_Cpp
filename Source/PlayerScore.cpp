@@ -3,6 +3,7 @@
 PlayerScore::PlayerScore()
 {
 	points = 0;
+	advantage = 0;
 }
 
 void PlayerScore::addPoint()
