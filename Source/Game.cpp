@@ -5,7 +5,7 @@ Game::Game()
 	state = Ongoing;
 	playerA = Player("PlayerA");
 	playerB = Player("PlayerB");
-	winner = nullptr;
+	winner = Player(noWinnerMessage);
 }
 
 Player& Game::getPlayerA()
@@ -23,12 +23,45 @@ GameState Game::getState() const
 	return state;
 }
 
-void Game::checkWinners()
+void Game::checkIfPlayerWonAgainst(Player& player, Player& enemyPlayer)
 {
-	if (playerA.getAdvantage() - playerB.getAdvantage() == 1)
-		winner = &playerA;
-	if (playerB.getAdvantage() - playerA.getAdvantage() == 1)
-		winner = &playerB;
+	if (player.getAdvantage() - enemyPlayer.getAdvantage() == 1){
+		winner = player;
+	}
+}
+
+void Game::addPointsForPlayer(Player& player)
+{
+	if (player.getPoints() >= 30)
+	{
+		player.addAdvantage();
+	}
+	player.addPoint();
+}
+
+void Game::resetAdvantages()
+{
+	playerA.resetAdvantage();
+	playerB.resetAdvantage();
+}
+
+void Game::scorePointForPlayerA()
+{
+	checkIfPlayerWonAgainst(playerA, playerB);
+	addPointsForPlayer(playerA);
+	updateState();
+}
+
+void Game::scorePointForPlayerB()
+{
+	checkIfPlayerWonAgainst(playerB, playerA);
+	addPointsForPlayer(playerB);
+	updateState();
+}
+
+bool Game::thereIsAWinner()
+{
+	return winner.getName() != noWinnerMessage;
 }
 
 bool Game::advantagesAreTied()
@@ -46,20 +79,24 @@ bool Game::IsDeuce()
 	return bothPointsAreForty() && advantagesAreTied();
 }
 
-void Game::updateState()
+GameState Game::checkState()
 {
-	checkWinners();
-	if (winner)
-		state = Ended;
-	else
-		if (IsDeuce()) state = Deuce;
+	if (thereIsAWinner()) return Ended;
+
+	if (IsDeuce()){
+		resetAdvantages();
+		return Deuce;
+	}
+
+	return Ongoing;
 }
 
-std::string Game::getWinnerName() const
+void Game::updateState()
 {
-	if (winner)
-	{
-		return winner->getName();
-	}
-	return "No winners yet";
+	state = checkState();
+}
+
+std::string& Game::getWinnerName()
+{
+	return winner.getName();
 }

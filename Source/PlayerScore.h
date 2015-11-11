@@ -2,15 +2,17 @@
 
 class PlayerScore
 {
-private:
 
 	int points;
 	int advantage;
+
 public:
 
 	PlayerScore();
 	
 	void addPoint();
-	int getPoints();
-	int getAdvantage();
+	int& getPoints();
+	int& getAdvantage();
+	void resetAdvantage();
+	void addAdvantage();
 };

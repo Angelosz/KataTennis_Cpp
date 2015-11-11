@@ -1,20 +1,18 @@
 ﻿#pragma once
 #include "Player.h"
 #include <string>
-#include <memory>
 
 enum GameState { Ended, Deuce, Ongoing};
 
 class Game
 {
-private:
+
 	Player playerB;
 	Player playerA;
-	Player* winner;
+	Player winner;
 
 	GameState state;
-
-
+	std::string noWinnerMessage = "No winners yet";
 public:
 
 	Game();
@@ -23,15 +21,20 @@ public:
 	Player& getPlayerB();
 
 	GameState getState() const;
-
-	void checkWinners();
+	void checkIfPlayerWonAgainst(Player& player, Player& enemyPlayer);
+	void addPointsForPlayer(Player& player);
+	void resetAdvantages();
+	void scorePointForPlayerA();
+	void scorePointForPlayerB();
+	bool thereIsAWinner();
 	
 	bool IsDeuce();
 	bool bothPointsAreForty();
 	bool advantagesAreTied();
 
+	GameState checkState();
 	void updateState();
 
-	std::string getWinnerName() const;
+	std::string& getWinnerName();
 
 };

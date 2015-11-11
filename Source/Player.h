@@ -4,7 +4,6 @@
 
 class Player
 {
-private:
 
 	PlayerScore score;
 	std::string name;
@@ -16,9 +15,11 @@ public:
 
 	void addPoint();
 
-	int getPoints();
+	int& getPoints();
 
-	int getAdvantage();
+	int& getAdvantage();
 	
-	std::string getName();
+	std::string& getName();
+	void resetAdvantage();
+	void addAdvantage();
 };

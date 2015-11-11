@@ -9,35 +9,35 @@
 
 TEST_CASE("PlayerScore should")
 {
-	Player Player("Player");
+	Game game;
 	PointsAdder PointsAdder;
 
 	SECTION("have 15 points after winning one ball")
 	{
-		Player.addPoint();
+		game.scorePointForPlayerA();
 
-		REQUIRE(Player.getPoints() == 15);
+		REQUIRE(game.getPlayerA().getPoints() == 15);
 	}
 
 	SECTION("have 30 points after winning two balls")
 	{
-		PointsAdder.addPointsToPlayerScore(Player, 2);
+		PointsAdder.addPointsToPlayerAScore(game, 2);
 
-		REQUIRE(Player.getPoints() == 30);
+		REQUIRE(game.getPlayerA().getPoints() == 30);
 	}
 
 	SECTION("have 40 points after winning three balls")
 	{
-		PointsAdder.addPointsToPlayerScore(Player, 3);
+		PointsAdder.addPointsToPlayerAScore(game, 3);
 
-		REQUIRE(Player.getPoints() == 40);
+		REQUIRE(game.getPlayerA().getPoints() == 40);
 	}
 
 	SECTION("have 40 points and one advantage after winning four balls")
 	{
-		PointsAdder.addPointsToPlayerScore(Player, 4);
+		PointsAdder.addPointsToPlayerAScore(game, 4);
 
-		REQUIRE(Player.getPoints() == 40);
-		REQUIRE(Player.getAdvantage() == 1);
+		REQUIRE(game.getPlayerA().getPoints() == 40);
+		REQUIRE(game.getPlayerA().getAdvantage() == 1);
 	}
 }

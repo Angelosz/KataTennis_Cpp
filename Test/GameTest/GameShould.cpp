@@ -19,44 +19,49 @@ TEST_CASE("Game should")
 	{
 		REQUIRE(game.getState() == Ongoing);
 	}
-
+	
 	SECTION("return PlayerA as winner after winning four balls to zero")
 	{
-		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 4);
-		game.updateState();
+		PointsAdder.addPointsToPlayerAScore(game, 4);
 
 		CHECK(game.getWinnerName() == "PlayerA");
 		REQUIRE(game.getState() == Ended);
 	}
-	
+
 	SECTION("return PlayerB as winner after winning four balls to zero")
 	{
-		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 4);
-		game.updateState();
+		PointsAdder.addPointsToPlayerBScore(game, 4);
 
 		CHECK(game.getWinnerName() == "PlayerB");
 		REQUIRE(game.getState() == Ended);
 	}
-
+	
 	SECTION("return Deuce as State when both players have 40 points")
 	{
-		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 3);
-		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 3);
-		game.updateState();
+		PointsAdder.addPointsToPlayerAScore(game, 3);
+		PointsAdder.addPointsToPlayerBScore(game, 3);
 
 		CHECK(game.getWinnerName() == "No winners yet");
 		REQUIRE(game.getState() == Deuce);
 	}
-
+	
 	SECTION("return Deuce as State when both players have 40 points and 1 advantage")
 	{
-		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 4);
-		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 4);
-		game.updateState();
+		PointsAdder.addPointsToPlayerAScore(game, 3);
+ 		PointsAdder.addPointsToPlayerBScore(game, 4);
+		PointsAdder.addPointsToPlayerAScore(game, 1);
 
 		CHECK(game.getWinnerName() == "No winners yet");
 		REQUIRE(game.getState() == Deuce);
 	}
-
-
+	
+	SECTION("return Ongoing as State when both players have 40 points, and playerA has 1 advantage")
+	{
+		PointsAdder.addPointsToPlayerAScore(game, 3);
+		PointsAdder.addPointsToPlayerBScore(game, 3);
+		PointsAdder.addPointsToPlayerAScore(game, 1);
+		
+		CHECK(game.getWinnerName() == "No winners yet");
+		REQUIRE(game.getState() == Ongoing);
+	}
 }

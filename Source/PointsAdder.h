@@ -1,13 +1,26 @@
 ﻿#pragma once
 #include "Player.h"
+#include "Game.h"
 
 class PointsAdder
 {
 public:
 
-	void addPointsToPlayerScore(Player& Player, int times)
+	void addPointsToPlayerAScore(Game& game, int times)
 	{
 		for (int i = 0; i < times; i++)
-			Player.addPoint();
+			game.scorePointForPlayerA();
+	}
+	
+	void addPointsToPlayerBScore(Game& game, int times)
+	{
+		for (int i = 0; i < times; i++)
+			game.scorePointForPlayerB();
+	}
+
+	void addPointsToPlayerScore(Player& player, int times)
+	{
+		for (int i = 0; i < times; i++)
+			player.addPoint();
 	}
 };

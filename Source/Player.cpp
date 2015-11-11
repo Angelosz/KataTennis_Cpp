@@ -12,17 +12,27 @@ void Player::addPoint()
 	score.addPoint();
 }
 
-int Player::getPoints()
+int& Player::getPoints()
 {
 	return score.getPoints();
 }
 
-int Player::getAdvantage()
+int& Player::getAdvantage()
 {
 	return score.getAdvantage();
 }
 
-std::string Player::getName()
+std::string& Player::getName()
 {
 	return name;
+}
+
+void Player::resetAdvantage()
+{
+	score.resetAdvantage();
+}
+
+void Player::addAdvantage()
+{
+	score.addAdvantage();
 }
