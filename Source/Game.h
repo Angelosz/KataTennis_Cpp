@@ -13,6 +13,18 @@ class Game
 
 	GameState state;
 	std::string noWinnerMessage = "No winners yet";
+
+	void resetAdvantages();
+
+	bool thereIsAWinner();
+
+	bool IsDeuce();
+	bool bothPointsAreForty();
+	bool advantagesAreTied();
+
+	GameState checkState();
+	void updateState();
+
 public:
 
 	Game();
@@ -21,19 +33,9 @@ public:
 	Player& getPlayerB();
 
 	GameState getState() const;
-	void checkIfPlayerWonAgainst(Player& player, Player& enemyPlayer);
-	void addPointsForPlayer(Player& player);
-	void resetAdvantages();
-	void scorePointForPlayerA();
-	void scorePointForPlayerB();
-	bool thereIsAWinner();
-	
-	bool IsDeuce();
-	bool bothPointsAreForty();
-	bool advantagesAreTied();
 
-	GameState checkState();
-	void updateState();
+	void addPointsTo(Player& player);
+	void addPointsForPlayer(Player& player);
 
 	std::string& getWinnerName();
 

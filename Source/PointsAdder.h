@@ -9,18 +9,12 @@ public:
 	void addPointsToPlayerAScore(Game& game, int times)
 	{
 		for (int i = 0; i < times; i++)
-			game.scorePointForPlayerA();
+			game.addPointsForPlayer(game.getPlayerA());
 	}
 	
 	void addPointsToPlayerBScore(Game& game, int times)
 	{
 		for (int i = 0; i < times; i++)
-			game.scorePointForPlayerB();
-	}
-
-	void addPointsToPlayerScore(Player& player, int times)
-	{
-		for (int i = 0; i < times; i++)
-			player.addPoint();
+			game.addPointsForPlayer(game.getPlayerB());
 	}
 };

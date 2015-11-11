@@ -14,7 +14,7 @@ TEST_CASE("PlayerScore should")
 
 	SECTION("have 15 points after winning one ball")
 	{
-		game.scorePointForPlayerA();
+		PointsAdder.addPointsToPlayerAScore(game, 1);
 
 		REQUIRE(game.getPlayerA().getPoints() == 15);
 	}

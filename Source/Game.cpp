@@ -23,14 +23,20 @@ GameState Game::getState() const
 	return state;
 }
 
-void Game::checkIfPlayerWonAgainst(Player& player, Player& enemyPlayer)
+std::string& Game::getWinnerName()
 {
-	if (player.getAdvantage() - enemyPlayer.getAdvantage() == 1){
-		winner = player;
-	}
+	return winner.getName();
 }
 
 void Game::addPointsForPlayer(Player& player)
+{
+	if (player.getAdvantage() == 1) winner = player;
+	addPointsTo(player);
+	updateState();
+	if (state == Deuce) resetAdvantages();	
+}
+
+void Game::addPointsTo(Player& player)
 {
 	if (player.getPoints() >= 30)
 	{
@@ -45,18 +51,18 @@ void Game::resetAdvantages()
 	playerB.resetAdvantage();
 }
 
-void Game::scorePointForPlayerA()
+void Game::updateState()
 {
-	checkIfPlayerWonAgainst(playerA, playerB);
-	addPointsForPlayer(playerA);
-	updateState();
+	state = checkState();
 }
 
-void Game::scorePointForPlayerB()
+GameState Game::checkState()
 {
-	checkIfPlayerWonAgainst(playerB, playerA);
-	addPointsForPlayer(playerB);
-	updateState();
+	if (thereIsAWinner()) return Ended;
+
+	if (IsDeuce()) return Deuce;
+
+	return Ongoing;
 }
 
 bool Game::thereIsAWinner()
@@ -77,26 +83,4 @@ bool Game::bothPointsAreForty()
 bool Game::IsDeuce()
 {
 	return bothPointsAreForty() && advantagesAreTied();
-}
-
-GameState Game::checkState()
-{
-	if (thereIsAWinner()) return Ended;
-
-	if (IsDeuce()){
-		resetAdvantages();
-		return Deuce;
-	}
-
-	return Ongoing;
-}
-
-void Game::updateState()
-{
-	state = checkState();
-}
-
-std::string& Game::getWinnerName()
-{
-	return winner.getName();
 }
