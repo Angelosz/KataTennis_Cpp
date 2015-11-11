@@ -31,17 +31,28 @@ void Game::checkWinners()
 		winner = &playerB;
 }
 
+bool Game::advantagesAreTied()
+{
+	return playerA.getAdvantage() == playerB.getAdvantage();
+}
+
+bool Game::bothPointsAreForty()
+{
+	return (playerA.getPoints() == 40 && playerB.getPoints() == 40);
+}
+
+bool Game::IsDeuce()
+{
+	return bothPointsAreForty() && advantagesAreTied();
+}
+
 void Game::updateState()
 {
 	checkWinners();
 	if (winner)
-	{
 		state = Ended;
-	} 
 	else
-	{
-		if (playerA.getPoints() == 40 && playerB.getPoints() == 40) state = Deuce;
-	}
+		if (IsDeuce()) state = Deuce;
 }
 
 std::string Game::getWinnerName() const

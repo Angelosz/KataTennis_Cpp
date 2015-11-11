@@ -26,6 +26,10 @@ public:
 
 	void checkWinners();
 	
+	bool IsDeuce();
+	bool bothPointsAreForty();
+	bool advantagesAreTied();
+
 	void updateState();
 
 	std::string getWinnerName() const;

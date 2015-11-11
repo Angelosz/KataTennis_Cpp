@@ -38,10 +38,20 @@ TEST_CASE("Game should")
 		REQUIRE(game.getState() == Ended);
 	}
 
-	SECTION("Should return Deuce as State when both players have 40 points")
+	SECTION("return Deuce as State when both players have 40 points")
 	{
 		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 3);
 		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 3);
+		game.updateState();
+
+		CHECK(game.getWinnerName() == "No winners yet");
+		REQUIRE(game.getState() == Deuce);
+	}
+
+	SECTION("return Deuce as State when both players have 40 points and 1 advantage")
+	{
+		PointsAdder.addPointsToPlayerScore(game.getPlayerA(), 4);
+		PointsAdder.addPointsToPlayerScore(game.getPlayerB(), 4);
 		game.updateState();
 
 		CHECK(game.getWinnerName() == "No winners yet");
