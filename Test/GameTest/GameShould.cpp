@@ -45,7 +45,7 @@ TEST_CASE("Game should")
 		REQUIRE(game.getState() == Deuce);
 	}
 	
-	SECTION("return Deuce as State when both players have 40 points and 1 advantage")
+	SECTION("return Deuce as State when both players have 40 points and went back to Deuce after playerA having advantage")
 	{
 		PointsAdder.addPointsToPlayerAScore(game, 3);
  		PointsAdder.addPointsToPlayerBScore(game, 4);
@@ -55,7 +55,7 @@ TEST_CASE("Game should")
 		REQUIRE(game.getState() == Deuce);
 	}
 	
-	SECTION("return Ongoing as State when both players have 40 points, and playerA has 1 advantage")
+	SECTION("return Ongoing as State when both players have 40 points, and playerA has advantage")
 	{
 		PointsAdder.addPointsToPlayerAScore(game, 3);
 		PointsAdder.addPointsToPlayerBScore(game, 3);
