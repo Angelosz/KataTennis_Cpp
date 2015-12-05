@@ -33,7 +33,7 @@ void Game::addPointsForPlayer(Player& player)
 	if (player.getAdvantage() == 1) winner = player;
 	addPointsTo(player);
 	updateState();
-	if (state == Deuce) resetAdvantages();	
+	if (state == Deuce) resetAdvantages();
 }
 
 void Game::addPointsTo(Player& player)
